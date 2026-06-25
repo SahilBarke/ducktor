@@ -1,7 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "ducktor"
 version = "0.1.0"
-description = "Add your description here"
+description = "DuckDB-native data contract validator — validate datasets against YAML-defined contracts"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["data", "contracts", "duckdb", "validation", "data-engineering"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "click>=8.4.2",
+    "duckdb>=1.5.4",
+    "pydantic>=2.13.4",
+    "pyyaml>=6.0.3",
+    "rich>=15.0.0",
+]
+
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.4.0"]
+
+[project.scripts]
+ducktor = "ducktor.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/SahilBarke/ducktor"
+Issues = "https://github.com/SahilBarke/ducktor/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ducktor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
