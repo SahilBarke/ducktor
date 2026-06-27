@@ -14,17 +14,17 @@ from enum import Enum
 class CheckStatus(str, Enum):
     PASS = "PASS"
     FAIL = "FAIL"
-    ERROR = "ERROR"  # For example, if the check could not be executed due to a missing column
+    ERROR = "ERROR"  # check couldn't run (e.g. column missing)
 
 
 @dataclass
 class CheckResult:
-    """The result of a single check on a single column"""
+    """Result of a single check."""
 
-    name: str  # e.g. "order_id :: not_null"
+    name: str           # e.g. "order_id :: not_null"
     status: CheckStatus
-    sql: str  # the exact SQL that ran
-    detail: str = ""  # human-readable failure reason or empty on pass
+    sql: str            # the exact SQL that ran
+    detail: str = ""    # human-readable failure reason or empty on pass
 
     @property
     def passed(self) -> bool:
@@ -33,7 +33,7 @@ class CheckResult:
 
 @dataclass
 class ValidationResult:
-    """Aggregated result of all checks for one contract run"""
+    """Aggregated result of all checks for one contract run."""
 
     contract_name: str
     source_path: str
@@ -41,19 +41,18 @@ class ValidationResult:
 
     @property
     def passed(self) -> bool:
-        return all(check.passed for check in self.checks)
+        return all(c.passed for c in self.checks)
 
     @property
     def failed_checks(self) -> list[CheckResult]:
-        return [check for check in self.checks if not check.passed]
+        return [c for c in self.checks if not c.passed]
 
     @property
-    def summary(self) -> str:
+    def summary(self) -> dict:
         total = len(self.checks)
         failed = len(self.failed_checks)
         return {
-            "total_checks": total,
-            "passed_checks": total - failed,
-            "failed_checks": failed,
-            "overall_status": CheckStatus.PASS if failed == 0 else CheckStatus.FAIL,
+            "total": total,
+            "passed": total - failed,
+            "failed": failed,
         }
