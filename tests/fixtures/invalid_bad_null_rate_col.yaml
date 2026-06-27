@@ -1,0 +1,10 @@
+name: bad_null_rate
+source:
+  type: parquet
+  path: data/test.parquet
+columns:
+  amount:
+    type: DOUBLE
+dataset:
+  max_null_rate:
+    non_existent_column: 0.1

@@ -1,0 +1,4 @@
+name : broken
+columns:
+  id:
+    type: INTEGER

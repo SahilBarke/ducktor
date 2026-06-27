@@ -1,0 +1,4 @@
+name : minimal
+source:
+  type: csv
+  path: data/minimal.csv
