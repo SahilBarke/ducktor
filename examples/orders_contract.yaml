@@ -1,0 +1,29 @@
+version: 1
+name: orders
+source:
+  type: parquet
+  path: tests/fixtures/orders_clean.parquet
+
+columns:
+  order_id:
+    type: INTEGER
+    nullable: false
+    unique: true
+  status:
+    type: VARCHAR
+    nullable: false
+    allowed_values: [pending, shipped, delivered, cancelled]
+  amount:
+    type: DOUBLE
+    nullable: false
+    min: 0.0
+    max: 100000.0
+  created_at:
+    type: TIMESTAMP
+    nullable: false
+
+dataset:
+  min_rows: 100
+  max_null_rate:
+    amount: 0.0
+    status: 0.05
