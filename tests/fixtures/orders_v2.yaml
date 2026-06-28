@@ -1,0 +1,34 @@
+version: 1
+name: orders_v2
+source:
+  type: parquet
+  path: data/orders.parquet
+
+columns:
+  order_id:
+    type: INTEGER
+    nullable: false
+    unique: true
+  status:
+    type: VARCHAR
+    nullable: false
+    allowed_values: [pending, shipped, delivered, cancelled, refunded]  # widened — additive
+  amount:
+    type: DOUBLE
+    nullable: false
+    min: 0.0
+    max: 50000.0     # lowered — BREAKING
+  created_at:
+    type: TIMESTAMP
+    nullable: false
+  discount_pct:      # new column — additive
+    type: DOUBLE
+    nullable: true
+
+dataset:
+  min_rows: 500      # raised — BREAKING
+  max_null_rate:
+    amount: 0.0
+  freshness:
+    column: created_at
+    max_age_hours: 24  # tightened — BREAKING
