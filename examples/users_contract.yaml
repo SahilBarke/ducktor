@@ -1,0 +1,19 @@
+version: 1
+name: users
+source:
+  type: csv
+  path: tests/fixtures/minimal.csv
+
+columns:
+  id:
+    type: INTEGER
+    nullable: false
+    unique: true
+    min: 1
+  label:
+    type: VARCHAR
+    nullable: false
+
+dataset:
+  min_rows: 1
+  max_rows: 10000
