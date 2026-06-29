@@ -2,14 +2,13 @@
 ducktor.parser
 --------------
 Reads a contract YAML file and returns a validated ContractDefinition.
-All user-facing parse errors are raised as ContractParseError with clear messages — no raw Pydantic or YAML tracebacks exposed.
+All user-facing parse errors are raised as ContractParseError with
+clear messages — no raw Pydantic or YAML tracebacks exposed.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
-
 import yaml
 from pydantic import ValidationError
 

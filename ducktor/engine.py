@@ -12,8 +12,6 @@ Design rules:
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import duckdb
 
 from ducktor.compiler import CompiledCheck, compile_contract
